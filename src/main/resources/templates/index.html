@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Version Control System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Historical Version Control System</h1>
+        
+        <h2>Available Versions</h2>
+        <ul id="versionList"></ul>
+
+        <h2>Reconstruction Theories</h2>
+        <ul id="theoryList"></ul>
+    </div>
+    
+    <script>
+        // Fetch and display versions
+        fetch('/versions')
+            .then(response => response.json())
+            .then(data => {
+                const versionList = document.getElementById('versionList');
+                data.forEach(version => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="/version/${version.id}">${version.name}</a>`;
+                    versionList.appendChild(li);
+                });
+            });
+
+        // Fetch and display theories
+        fetch('/theories')
+            .then(response => response.json())
+            .then(data => {
+                const theoryList = document.getElementById('theoryList');
+                data.forEach(theory => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="/theory/${theory.id}">${theory.name}</a>`;
+                    theoryList.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
