@@ -9,7 +9,9 @@ public class ReconstructionTheory {
     private String scholar;
     private String date;
     private String description;
-    private List<String> orderedVersionIds; // IDs in evolution order
+    private List<TextVersion> versions; // The versions associated with this theory
+    private List<Relationship> relationships; // Relationships specific to this theory
+    private List<ReconstructionTheory> children; // List to hold child theories
 
     // Constructor
     public ReconstructionTheory(String id, String name, String scholar, 
@@ -19,11 +21,21 @@ public class ReconstructionTheory {
         this.scholar = scholar;
         this.date = date;
         this.description = description;
-        this.orderedVersionIds = new ArrayList<>();
+        this.versions = new ArrayList<>(); // Initialize the versions list
+        this.relationships = new ArrayList<>(); // Initialize the relationships list
+        this.children = new ArrayList<>(); // Initialize the children list
     }
     
-    public void addVersion(String versionId) {
-        orderedVersionIds.add(versionId);
+    public void addVersion(TextVersion version) {
+        versions.add(version);
+    }
+
+    public void addRelationship(Relationship relationship) {
+        relationships.add(relationship);
+    }
+
+    public void addChildTheory(ReconstructionTheory child) {
+        children.add(child);
     }
 
     // Getters and setters
@@ -42,6 +54,7 @@ public class ReconstructionTheory {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public List<String> getOrderedVersionIds() { return orderedVersionIds; }
-    public void setOrderedVersionIds(List<String> orderedVersionIds) { this.orderedVersionIds = orderedVersionIds; }
+    public List<TextVersion> getVersions() { return versions; }
+    public List<Relationship> getRelationships() { return relationships; }
+    public List<ReconstructionTheory> getChildren() { return children; }
 }

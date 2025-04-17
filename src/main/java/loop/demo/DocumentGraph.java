@@ -6,20 +6,35 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
-@Component
 public class DocumentGraph {
+    private String id; // Unique identifier for the graph
     private Map<String, TextVersion> versions;
     private List<Relationship> relationships;
     private Map<String, Annotation> annotations;
     private Map<String, Manuscript> manuscripts;
-    private Map<String, ReconstructionTheory> theories;
+    private List<ReconstructionTheory> theories; // List to hold theories
 
-    public DocumentGraph() {
-        versions = new HashMap <>();
-        relationships = new ArrayList<>();
-        annotations = new HashMap<>();
-        manuscripts = new HashMap<>();
-        theories = new HashMap<>();
+    // Constructor
+    public DocumentGraph(String id) {
+        this.id = id;
+        this.versions = new HashMap<>();
+        this.relationships = new ArrayList<>();
+        this.annotations = new HashMap<>();
+        this.manuscripts = new HashMap<>();
+        this.theories = new ArrayList<>(); // Initialize the theories list
+    }
+
+    // Methods to add items
+    public void addTheory(ReconstructionTheory theory) {
+        theories.add(theory);
+    }
+
+    public List<ReconstructionTheory> getAllTheories() {
+        return theories;
+    }
+    // Getter for ID
+    public String getId() {
+        return id;
     }
 
     // Methods to add items
@@ -39,10 +54,7 @@ public class DocumentGraph {
         manuscripts.put(manuscript.getId(), manuscript);
     }
     
-    public void addTheory(ReconstructionTheory theory) {
-        theories.put(theory.getId(), theory);
-    }
-
+    
     // Methods to retrieve items
     public TextVersion getVersion(String id) {
         return versions.get(id);
@@ -75,7 +87,5 @@ public class DocumentGraph {
         return result;
     }
     
-    public List<ReconstructionTheory> getAllTheories() {
-        return new ArrayList<>(theories.values());
-    }
+  
 }
